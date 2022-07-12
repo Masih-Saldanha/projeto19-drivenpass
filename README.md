@@ -1,27 +1,29 @@
 <p align="center">
   <a href="https://github.com/$username-github/$nome-repositorio">
-    <img src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f355.svg" alt="readme-logo" width="80" height="80">
+    <img src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f512.svg" alt="readme-logo" width="80" height="80">
   </a>
 
   <h3 align="center">
-    Valex
+    DrivenPass
   </h3>
 </p>
 
 ## Usage
 
 ```bash
-$ git clone https://github.com/Masih-Saldanha/projeto18-valex
+$ git clone https://github.com/Masih-Saldanha/projeto19-drivenpass
 
-$ cd projeto18-valex
+$ cd projeto19-drivenpass
 
 $ npm install
 
 $ npm run dev
 ```
 
-API:
+## API:
 
+Under construction...
+<!-- 
 ```
 - POST /create-card
     - Rota para a empresa cadastrar um cartão novo para um empregado
@@ -75,4 +77,4 @@ API:
         "cardId": 1,
         "password": "1234"
     }
-```
+``` -->
