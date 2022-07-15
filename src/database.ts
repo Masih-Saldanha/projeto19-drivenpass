@@ -1,13 +1,4 @@
-import pg from "pg";
-import "./setup.js";
+import pkg from "@prisma/client";
 
-const { Pool } = pg;
-
-const db = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-        rejectUnauthorized: false
-    }
-});
-
-export default db;
+const { PrismaClient } = pkg;
+export const prisma = new PrismaClient();

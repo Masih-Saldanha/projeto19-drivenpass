@@ -3,7 +3,16 @@ export interface ErrorData {
     message: string;
 }
 
-export function errorType(error : ErrorData) {
+export function throwError(condition: boolean, type: string, message: string | string[]) {
+    if (condition) {
+        throw {
+            type,
+            message
+        }
+    }
+}
+
+export function errorType(error: ErrorData) {
     if (error.type === "Unauthorized") {
         return { status: 401, message: error.message };
     };
