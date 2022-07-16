@@ -8,7 +8,7 @@ async function registerCredential(userDataFromToken: TokenData, dataFromBody: Cr
 
     const encryptedPassword = cryptr.encrypt(dataFromBody.password);
 
-    dataFromBody.password = encryptedPassword
+    dataFromBody.password = encryptedPassword;
 
     const existTitle = await findCredentialByUserIdAndTitle(dataFromBody);
     throwError(!!existTitle, "Conflict", `The title ${dataFromBody.title} is already in use on another credential on your account`);
