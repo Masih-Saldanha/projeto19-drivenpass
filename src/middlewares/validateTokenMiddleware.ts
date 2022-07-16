@@ -3,6 +3,13 @@ import jwt from "jsonwebtoken";
 
 import { throwError } from "../utils/errorTypeUtils.js";
 
+
+export interface TokenData {
+    id: number,
+    email: string,
+    iat: number
+}
+
 export async function validateToken(req: Request, res: Response, next: NextFunction) {
     const { authorization } = req.headers;
     const token = authorization?.replace("Bearer ", "").trim();
