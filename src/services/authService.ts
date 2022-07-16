@@ -1,3 +1,4 @@
+import { Users } from "@prisma/client";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -22,8 +23,8 @@ function decryptPassword(password: string, encryptedPassword: string, email: str
     throwError(!isPassword, "Not Acceptable", `The password sent doesn't match with the e-mail: "${email}", try again`);
 };
 
-function createToken(email: string) {
-    const tokenData = { email };
+function createToken(userData: Users) {
+    const tokenData = { id: userData.id, email: userData.email };
     return jwt.sign(tokenData, process.env.JWT_TOKEN);
 };
 
@@ -33,7 +34,7 @@ async function signInUser(userData: UserData) {
 
     decryptPassword(userData.password, existUser.password, userData.email);
 
-    const token = createToken(userData.email);
+    const token = createToken(existUser);
 
     return token;
 };
