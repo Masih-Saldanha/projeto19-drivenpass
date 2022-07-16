@@ -14,4 +14,4 @@ export async function findUserByEmail(email: string) {
 
 export async function insertUser(userData: UserData) {
     await prisma.users.create({ data: userData });
-}
+};
