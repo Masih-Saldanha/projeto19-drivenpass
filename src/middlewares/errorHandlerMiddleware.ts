@@ -8,4 +8,4 @@ export function errorHandler(error, req : Request, res : Response, next : NextFu
     const errorThrow = errorType(error);
 
     return res.status(errorThrow.status).send(errorThrow.message);
-}
+};

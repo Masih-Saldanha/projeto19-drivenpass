@@ -8,7 +8,7 @@ export interface TokenData {
     id: number,
     email: string,
     iat: number
-}
+};
 
 export async function validateToken(req: Request, res: Response, next: NextFunction) {
     const { authorization } = req.headers;
@@ -22,4 +22,4 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
 
     res.locals.userDataFromToken = userDataFromToken;
     next();
-}
+};

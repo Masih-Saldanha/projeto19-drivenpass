@@ -9,6 +9,6 @@ const user = Joi.object<UserData>({
 
 const authSchema = {
     user
-}
+};
 
 export default authSchema;

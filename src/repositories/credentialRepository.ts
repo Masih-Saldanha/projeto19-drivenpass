@@ -1,6 +1,6 @@
 import { Credentials } from "@prisma/client";
 
-import { prisma } from "../database.js";
+import { prisma } from "../config/database.js";
 
 export type CredentialData = Omit<Credentials, "id">
 
