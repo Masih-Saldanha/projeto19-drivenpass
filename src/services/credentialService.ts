@@ -1,6 +1,6 @@
 import cryptr from "../cryptrConfig.js";
 import { TokenData } from "../middlewares/validateTokenMiddleware.js";
-import { CredentialData, findCredentialByUserIdAndTitle, insertCredential } from "../repositories/credentialRepository.js";
+import { CredentialData, findCredentialByUserIdAndTitle, getAllCredentialsByUserId, insertCredential } from "../repositories/credentialRepository.js";
 import { throwError } from "../utils/errorTypeUtils.js";
 
 function encryptData(data: string) {
@@ -20,8 +20,25 @@ async function registerCredential(userDataFromToken: TokenData, dataFromBody: Cr
     await insertCredential(dataFromBody);
 };
 
+function decryptData(data: string) {
+    return cryptr.decrypt(data);
+};
+
+async function getAllCredentials(userId: number) {
+    const allCredentials = await getAllCredentialsByUserId(userId);
+
+    allCredentials.forEach(credential => {
+        credential.password = decryptData(credential.password);
+        delete credential.id;
+        delete credential.userId;
+    });
+
+    return allCredentials;
+};
+
 const credentialService = {
-    registerCredential
+    registerCredential,
+    getAllCredentials
 };
 
 export default credentialService;
