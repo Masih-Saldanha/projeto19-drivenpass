@@ -20,3 +20,12 @@ export async function getAllCredentials(req: Request, res: Response) {
 
     res.status(200).send(credentials);
 };
+
+export async function getCredentialByCredentialId(req: Request, res: Response) {
+    const userDataFromToken: TokenData = res.locals.userDataFromToken;
+    const credentialId = parseInt(req.params.credentialId);
+
+    const credential = await credentialService.getCredential(credentialId, userDataFromToken.id);
+
+    res.status(200).send(credential);
+};

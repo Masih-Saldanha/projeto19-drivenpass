@@ -1,6 +1,6 @@
 import cryptr from "../cryptrConfig.js";
 import { TokenData } from "../middlewares/validateTokenMiddleware.js";
-import { CredentialData, findCredentialByUserIdAndTitle, getAllCredentialsByUserId, insertCredential } from "../repositories/credentialRepository.js";
+import { CredentialData, findCredentialByUserIdAndTitle, getAllCredentialsByUserId, getCredentialByCredentialId, insertCredential } from "../repositories/credentialRepository.js";
 import { throwError } from "../utils/errorTypeUtils.js";
 
 function encryptData(data: string) {
@@ -36,9 +36,23 @@ async function getAllCredentials(userId: number) {
     return allCredentials;
 };
 
+async function getCredential(credentialId: number, userId: number) {
+    const credentials = await getCredentialByCredentialId(credentialId);
+    throwError(!credentials, "Not Found", `The credential with the ID: "${credentialId}" doesn't exist`);
+
+    credentials.password = decryptData(credentials.password);
+    throwError(credentials.userId !== userId, "Unauthorized", `You doesn't have access to a credential that's not yours`)
+
+    delete credentials.id;
+    delete credentials.userId;
+
+    return credentials;
+};
+
 const credentialService = {
     registerCredential,
-    getAllCredentials
+    getAllCredentials,
+    getCredential
 };
 
 export default credentialService;

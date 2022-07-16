@@ -26,3 +26,11 @@ export async function getAllCredentialsByUserId(userId: number) {
         }
     });
 };
+
+export async function getCredentialByCredentialId(credentialId: number) {
+    return prisma.credentials.findUnique({
+        where: {
+            id: credentialId
+        }
+    });
+};
