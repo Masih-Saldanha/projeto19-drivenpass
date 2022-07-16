@@ -29,3 +29,12 @@ export async function getCredentialByCredentialId(req: Request, res: Response) {
 
     res.status(200).send(credential);
 };
+
+export async function deleteCredentialByCredentialId(req: Request, res: Response) {
+    const userDataFromToken: TokenData = res.locals.userDataFromToken;
+    const credentialId = parseInt(req.params.credentialId);
+
+    await credentialService.deleteCredential(credentialId, userDataFromToken.id);
+
+    res.sendStatus(200);
+};

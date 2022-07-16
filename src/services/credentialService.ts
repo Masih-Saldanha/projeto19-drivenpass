@@ -1,6 +1,6 @@
 import cryptr from "../cryptrConfig.js";
 import { TokenData } from "../middlewares/validateTokenMiddleware.js";
-import { CredentialData, findCredentialByUserIdAndTitle, getAllCredentialsByUserId, getCredentialByCredentialId, insertCredential } from "../repositories/credentialRepository.js";
+import { CredentialData, deleteCredentialByCredentialId, findCredentialByUserIdAndTitle, getAllCredentialsByUserId, getCredentialByCredentialId, insertCredential } from "../repositories/credentialRepository.js";
 import { throwError } from "../utils/errorTypeUtils.js";
 
 function encryptData(data: string) {
@@ -36,23 +36,34 @@ async function getAllCredentials(userId: number) {
     return allCredentials;
 };
 
+async function credentialVerification(credentialId: number, userId: number) {
+    const credential = await getCredentialByCredentialId(credentialId);
+    throwError(!credential, "Not Found", `The credential with the ID: "${credentialId}" doesn't exist`);
+    throwError(credential.userId !== userId, "Unauthorized", `You doesn't have access to a credential that's not yours`);
+    return credential;
+};
+
 async function getCredential(credentialId: number, userId: number) {
-    const credentials = await getCredentialByCredentialId(credentialId);
-    throwError(!credentials, "Not Found", `The credential with the ID: "${credentialId}" doesn't exist`);
+    const credential = await credentialVerification(credentialId, userId);
 
-    credentials.password = decryptData(credentials.password);
-    throwError(credentials.userId !== userId, "Unauthorized", `You doesn't have access to a credential that's not yours`)
+    credential.password = decryptData(credential.password);
+    delete credential.id;
+    delete credential.userId;
 
-    delete credentials.id;
-    delete credentials.userId;
+    return credential;
+};
 
-    return credentials;
+async function deleteCredential(credentialId: number, userId: number) {
+    const credential = await credentialVerification(credentialId, userId);
+
+    await deleteCredentialByCredentialId(credential.id);
 };
 
 const credentialService = {
     registerCredential,
     getAllCredentials,
-    getCredential
+    getCredential,
+    deleteCredential
 };
 
 export default credentialService;

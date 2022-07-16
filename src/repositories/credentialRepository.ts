@@ -34,3 +34,11 @@ export async function getCredentialByCredentialId(credentialId: number) {
         }
     });
 };
+
+export async function deleteCredentialByCredentialId(credentialId: number) {
+    await prisma.credentials.delete({
+        where: {
+            id: credentialId
+        }
+    });
+};
