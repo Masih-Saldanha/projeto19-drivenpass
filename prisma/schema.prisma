@@ -1,22 +1,20 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("DATABASE_URL")
 }
 
 model Users {
   id            Int             @id @default(autoincrement())
   email         String          @unique
   password      String
+  cards         Cards[]
   credentials   Credentials[]
   secureNotes   SecureNotes[]
-  cards         Cards[]
   wifiPasswords WifiPasswords[]
 
   @@map("users")
@@ -46,14 +44,8 @@ model SecureNotes {
   @@map("secureNotes")
 }
 
-enum Card {
-  credit
-  debit
-  both
-}
-
 model Cards {
-  id             Int      @id @default(autoincrement())
+  id             Int     @id @default(autoincrement())
   title          String
   number         String
   name           String
@@ -63,7 +55,7 @@ model Cards {
   isVirtual      Boolean
   type           Card
   userId         Int
-  users          Users    @relation(fields: [userId], references: [id])
+  users          Users   @relation(fields: [userId], references: [id])
 
   @@unique([userId, title])
   @@map("cards")
@@ -78,4 +70,10 @@ model WifiPasswords {
   users    Users  @relation(fields: [userId], references: [id])
 
   @@map("wifiPasswords")
+}
+
+enum Card {
+  credit
+  debit
+  both
 }
