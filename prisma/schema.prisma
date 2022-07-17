@@ -58,7 +58,7 @@ model Cards {
   number         String
   name           String
   securityCode   String
-  expirationDate DateTime @db.Timestamptz()
+  expirationDate String
   password       String
   isVirtual      Boolean
   type           Card
