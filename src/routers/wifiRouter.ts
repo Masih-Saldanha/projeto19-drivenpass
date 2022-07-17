@@ -6,10 +6,9 @@ import { deleteWifiByWifiId, getAllWifis, getWifiByWifiId, registerWifi } from "
 import { validateToken } from "../middlewares/validateTokenMiddleware.js";
 const wifiRouter = Router();
 
-wifiRouter.use(validateToken);
-wifiRouter.post("/wifi/register", validateSchema(wifiSchema.wifi), registerWifi);
-wifiRouter.get("/wifi/getall", getAllWifis);
-wifiRouter.get("/wifi/get/:wifiId", getWifiByWifiId);
-wifiRouter.delete("/wifi/delete/:wifiId", deleteWifiByWifiId);
+wifiRouter.post("/wifi/register", validateToken, validateSchema(wifiSchema.wifi), registerWifi);
+wifiRouter.get("/wifi/getall", validateToken, getAllWifis);
+wifiRouter.get("/wifi/get/:wifiId", validateToken, getWifiByWifiId);
+wifiRouter.delete("/wifi/delete/:wifiId", validateToken, deleteWifiByWifiId);
 
 export default wifiRouter;

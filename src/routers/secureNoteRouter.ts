@@ -6,10 +6,9 @@ import { deleteSecureNoteBySecureNoteId, getAllSecureNotes, getSecureNoteBySecur
 import { validateToken } from "../middlewares/validateTokenMiddleware.js";
 const secureNoteRouter = Router();
 
-secureNoteRouter.use(validateToken);
-secureNoteRouter.post("/securenote/register", validateSchema(secureNoteSchema.secureNote), registerSecureNote);
-secureNoteRouter.get("/securenote/getall", getAllSecureNotes);
-secureNoteRouter.get("/securenote/get/:secureNoteId", getSecureNoteBySecureNoteId);
-secureNoteRouter.delete("/securenote/delete/:secureNoteId", deleteSecureNoteBySecureNoteId);
+secureNoteRouter.post("/securenote/register", validateToken, validateSchema(secureNoteSchema.secureNote), registerSecureNote);
+secureNoteRouter.get("/securenote/getall", validateToken, getAllSecureNotes);
+secureNoteRouter.get("/securenote/get/:secureNoteId", validateToken, getSecureNoteBySecureNoteId);
+secureNoteRouter.delete("/securenote/delete/:secureNoteId", validateToken, deleteSecureNoteBySecureNoteId);
 
 export default secureNoteRouter;

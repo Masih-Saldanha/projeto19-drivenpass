@@ -6,10 +6,9 @@ import { deleteCredentialByCredentialId, getAllCredentials, getCredentialByCrede
 import { validateToken } from "../middlewares/validateTokenMiddleware.js";
 const credentialRouter = Router();
 
-credentialRouter.use(validateToken);
-credentialRouter.post("/credential/register", validateSchema(credentialSchema.credential), registerCredential);
-credentialRouter.get("/credential/getall", getAllCredentials);
-credentialRouter.get("/credential/get/:credentialId", getCredentialByCredentialId);
-credentialRouter.delete("/credential/delete/:credentialId", deleteCredentialByCredentialId);
+credentialRouter.post("/credential/register", validateToken, validateSchema(credentialSchema.credential), registerCredential);
+credentialRouter.get("/credential/getall", validateToken, getAllCredentials);
+credentialRouter.get("/credential/get/:credentialId", validateToken, getCredentialByCredentialId);
+credentialRouter.delete("/credential/delete/:credentialId", validateToken, deleteCredentialByCredentialId);
 
 export default credentialRouter;

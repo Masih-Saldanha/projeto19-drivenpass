@@ -6,10 +6,9 @@ import { deleteCardByCardId, getAllCards, getCardByCardId, registerCard } from "
 import { validateToken } from "../middlewares/validateTokenMiddleware.js";
 const cardRouter = Router();
 
-cardRouter.use(validateToken);
-cardRouter.post("/card/register", validateSchema(cardSchema.card), registerCard);
-cardRouter.get("/card/getall", getAllCards);
-cardRouter.get("/card/get/:cardId", getCardByCardId);
-cardRouter.delete("/card/delete/:cardId", deleteCardByCardId);
+cardRouter.post("/card/register", validateToken, validateSchema(cardSchema.card), registerCard);
+cardRouter.get("/card/getall", validateToken, getAllCards);
+cardRouter.get("/card/get/:cardId", validateToken, getCardByCardId);
+cardRouter.delete("/card/delete/:cardId", validateToken, deleteCardByCardId);
 
 export default cardRouter;
