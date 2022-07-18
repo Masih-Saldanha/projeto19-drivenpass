@@ -30,9 +30,10 @@ $ npm run dev
 
 ## API:
 
-```
-# Rotas de autenticação:
 
+### Rotas de autenticação:
+
+```
 - POST /signup
     - Rota para cadastrar um usuário (Senha de no mínimo 10 caracteres)
     - headers: {}
@@ -40,6 +41,8 @@ $ npm run dev
         "email": "email@email.com",
         "password": "somepassword"
     }
+```
+```
 - POST /signin
     - Rota para o usuário logar e receber um token através do corpo da resposta
     - headers: {}
@@ -47,9 +50,11 @@ $ npm run dev
         "email": "email@email.com",
         "password": "somepassword"
     }
+```
     
-# Rotas de credenciais:
+### Rotas de credenciais:
 
+```
 - POST /credential/register
     - Rota para o usuário registrar uma credencial
     - headers: {
@@ -61,27 +66,35 @@ $ npm run dev
         "user": "Some User Name",
         "password": "somepassword"
     }
+```
+```
 - GET /credential/getall
     - Rota para o usuário resgatar todas as suas credenciais criadas através do corpo da resposta
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
+```
 - GET /credential/get/:credentialId
     - Rota para o usuário resgatar uma credencial específica informada pelo params "credentialId" através do corpo da resposta
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
+```
 - DELETE /credential/delete/:credentialId
     - Rota para o usuário deletar uma credencial específica informada pelo params "credentialId"
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
     
-# Rotas de notas seguras:
+### Rotas de notas seguras:
 
+```
 - POST /securenote/register
     - Rota para o usuário registrar uma nota segura ("title" máx 50 char. e "note" máx 1000 char.)
     - headers: {
@@ -91,27 +104,35 @@ $ npm run dev
         "title": "Some Title",
         "note": "Some Note"
     }
+```
+```
 - GET /securenote/getall
     - Rota para o usuário resgatar todas as suas notas seguras criadas através do corpo da resposta
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
+```
 - GET /securenote/get/:securenoteId
     - Rota para o usuário resgatar uma nota segura específica informada pelo params "securenoteId" através do corpo da resposta
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
+```
 - DELETE /securenote/delete/:securenoteId
     - Rota para o usuário deletar uma nota segura específica informada pelo params "securenoteId"
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
     
-# Rotas de cartões:
+### Rotas de cartões:
 
+```
 - POST /card/register
     - Rota para o usuário registrar um cartão ("type": credit, debit ou both)
     - headers: {
@@ -127,27 +148,35 @@ $ npm run dev
         "isVirtual": false,
         "type": "both"
     }
+```
+```
 - GET /card/getall
     - Rota para o usuário resgatar todas os seus cartões criados através do corpo da resposta
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
+```
 - GET /card/get/:cardId
     - Rota para o usuário resgatar um cartão específico informado pelo params "cardId" através do corpo da resposta
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
+```
 - DELETE /card/delete/:cardId
     - Rota para o usuário deletar um cartão específico informado pelo params "cardId"
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
     
-# Rotas de wi-fi:
+### Rotas de wi-fi:
 
+```
 - POST /wifi/register
     - Rota para o usuário registrar uma wi-fi
     - headers: {
@@ -158,18 +187,24 @@ $ npm run dev
         "name": "Some Name",
         "password": "somepassword"
     }
+```
+```
 - GET /wifi/getall
     - Rota para o usuário resgatar todas as suas wi-fis criadas através do corpo da resposta
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
+```
 - GET /wifi/get/:wifiId
     - Rota para o usuário resgatar uma wi-fi específica informada pelo params "wifiId" através do corpo da resposta
     - headers: {
         "Authorization": "Bearer token"
     }
     - body: {}
+```
+```
 - DELETE /wifi/delete/:wifiId
     - Rota para o usuário deletar uma wi-fi específica informada pelo params "wifiId"
     - headers: {
