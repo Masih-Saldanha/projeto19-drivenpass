@@ -22,59 +22,150 @@ $ npm run dev
 
 ## API:
 
-Under construction...
-<!-- 
 ```
-- POST /create-card
-    - Rota para a empresa cadastrar um cartão novo para um empregado
+# Rotas de autenticação:
+
+- POST /signup
+    - Rota para cadastrar um usuário (Senha de no mínimo 10 caracteres)
+    - headers: {}
+    - body: {
+        "email": "email@email.com",
+        "password": "somepassword"
+    }
+- POST /signin
+    - Rota para o usuário logar e receber um token através do corpo da resposta
+    - headers: {}
+    - body: {
+        "email": "email@email.com",
+        "password": "somepassword"
+    }
+    
+# Rotas de credenciais:
+
+- POST /credential/register
+    - Rota para o usuário registrar uma credencial
     - headers: {
-        "x-api-key": "loremIpsum"
+        "Authorization": "Bearer token"
     }
     - body: {
-        "employeeId": 1,
-        "type": "groceries" | "restaurant" | "transport" | "education" | "health"
+        "title": "Some title",
+        "url": "http://www.someurl.com",
+        "user": "Some User Name",
+        "password": "somepassword"
     }
-- PUT /activate-card
-    - Rota para o(a) empregado(a) ativar um cartão
-    - headers: {}
-    - body: {
-        "id": 1,
-        "securityCode": "123",
-        "password": "1234"
+- GET /credential/getall
+    - Rota para o usuário resgatar todas as suas credenciais criadas através do corpo da resposta
+    - headers: {
+        "Authorization": "Bearer token"
     }
-- POST /recharge-card
-    - Rota para a empresa recarregar o cartão de um(a) empregado(a)
-    - headers: {}
-    - body: {
-        "id": 1,
-        "rechargeValue": 100000
-    }
-- POST /buy
-    - Rota para o(a) empregado(a) fazer uma compra usando um cartão
-    - headers: {}
-    - body: {
-        "cardId": 1,
-        "password": "1234",
-        "amount": 10000,
-        "businessId": 1
-    }
-- GET /view-card/:cardId
-    - Rota para o(a) empregado(a) acessar saldo atual e histórico de recarga e uso do cartão
-    - headers: {}
     - body: {}
-    - params: { "cardId": "1" }
-- PUT /block-card
-    - Rota para o(a) empregado(a) bloquear um cartão
-    - headers: {}
-    - body: {
-        "cardId": 1,
-        "password": "1234"
+- GET /credential/get/:credentialId
+    - Rota para o usuário resgatar uma credencial específica informada pelo params "credentialId" através do corpo da resposta
+    - headers: {
+        "Authorization": "Bearer token"
     }
-- PUT /unblock-card
-    - Rota para o(a) empregado(a) bloquear um cartão
-    - headers: {}
-    - body: {
-        "cardId": 1,
-        "password": "1234"
+    - body: {}
+- DELETE /credential/delete/:credentialId
+    - Rota para o usuário deletar uma credencial específica informada pelo params "credentialId"
+    - headers: {
+        "Authorization": "Bearer token"
     }
-``` -->
+    - body: {}
+    
+# Rotas de notas seguras:
+
+- POST /securenote/register
+    - Rota para o usuário registrar uma nota segura ("title" máx 50 char. e "note" máx 1000 char.)
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {
+        "title": "Some Title",
+        "note": "Some Note"
+    }
+- GET /securenote/getall
+    - Rota para o usuário resgatar todas as suas notas seguras criadas através do corpo da resposta
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+- GET /securenote/get/:securenoteId
+    - Rota para o usuário resgatar uma nota segura específica informada pelo params "securenoteId" através do corpo da resposta
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+- DELETE /securenote/delete/:securenoteId
+    - Rota para o usuário deletar uma nota segura específica informada pelo params "securenoteId"
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+    
+# Rotas de cartões:
+
+- POST /card/register
+    - Rota para o usuário registrar um cartão ("type": credit, debit ou both)
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {
+        "title": "Some Title",
+        "number": "1234 1234 1234 1234",
+        "name": "Some Name",
+        "securityCode": "123",
+        "expirationDate": "10/27",
+        "password": "1234",
+        "isVirtual": false,
+        "type": "both"
+    }
+- GET /card/getall
+    - Rota para o usuário resgatar todas os seus cartões criados através do corpo da resposta
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+- GET /card/get/:cardId
+    - Rota para o usuário resgatar um cartão específico informado pelo params "cardId" através do corpo da resposta
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+- DELETE /card/delete/:cardId
+    - Rota para o usuário deletar um cartão específico informado pelo params "cardId"
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+    
+# Rotas de wi-fi:
+
+- POST /wifi/register
+    - Rota para o usuário registrar uma wi-fi
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {
+        "title": "Some Title",
+        "name": "Some Name",
+        "password": "somepassword"
+    }
+- GET /wifi/getall
+    - Rota para o usuário resgatar todas as suas wi-fis criadas através do corpo da resposta
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+- GET /wifi/get/:wifiId
+    - Rota para o usuário resgatar uma wi-fi específica informada pelo params "wifiId" através do corpo da resposta
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+- DELETE /wifi/delete/:wifiId
+    - Rota para o usuário deletar uma wi-fi específica informada pelo params "wifiId"
+    - headers: {
+        "Authorization": "Bearer token"
+    }
+    - body: {}
+```
